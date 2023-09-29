@@ -218,66 +218,6 @@ async def send_function_list(message: types.Message):
 Блок с job'ой
 '''
 
-# async def check_changes():
-#
-#     # Здесь мы получим все аккаунты, где daily_change_rate не равен 0.0
-#     async with aiosqlite.connect(db_path) as db:
-#         c = await db.cursor()
-#         await c.execute('SELECT * FROM Accounts WHERE daily_change_rate != 0.0')
-#         accounts = await c.fetchall()
-#         await db.commit()
-#
-#         accounts_amounts = invest_requests.getAccountsAmounts()
-#
-#         for account in accounts:
-#             account_id = account[2]
-#             old_amount_rub = account[5]
-#             daily_change_rate = account[4]
-#
-#             found = False
-#             for acc in accounts_amounts:
-#                 if ast.literal_eval(acc[0]) == account_id:
-#                     new_amount_rub = acc[2]
-#                     found = True
-#                     break
-#
-#             if not found:
-#                 print(f"Нет данных для аккаунта {account_id}")
-#                 continue
-#
-#             if old_amount_rub is None:
-#                 # Пропустить аккаунт, если это первый запуск работы
-#                 print(f"Пропускаем аккаунт {account_id}, так как поле со стоимостью не заполнено")
-#                 continue
-#
-#             # Рассчитать actual_change_rate
-#             actual_change_rate = (new_amount_rub / old_amount_rub - 1)*100
-#             # Распаковываю информацию для удобства
-#             telegram_id = account[1]
-#             last_notification_date = account[9]
-#
-#             if last_notification_date is None:
-#                 last_notification_date = date(1970, 1, 1)  # установить дату по умолчанию
-#
-#             else:
-#                 if isinstance(last_notification_date, str):
-#                     last_notification_date = datetime.strptime(last_notification_date, '%Y-%m-%d').date()
-#                 else:  # Если это целое число, обработать как timestamp.
-#                     last_notification_date = datetime.fromtimestamp(last_notification_date).date()
-#             # Проверяем, нужно ли отправить уведомление
-#             if last_notification_date != datetime.today().date():
-#                 if (daily_change_rate < 0.0 and actual_change_rate < daily_change_rate) \
-#                         or (daily_change_rate > 0.0 and actual_change_rate > daily_change_rate):
-#                     await c.execute(
-#                         'UPDATE Accounts SET amount_rub_notified=?, last_notified_change=?, last_notification_date=? WHERE account_id=?',
-#                         (new_amount_rub, actual_change_rate, datetime.today().date().strftime('%Y-%m-%d'), account_id))
-#                     await db.commit()
-#                     await bot.send_message(telegram_id,
-#                                            f"Изменение за день по портфелю {account[3]} превысило установленные {daily_change_rate}% и составило {round(actual_change_rate, 3)}%")
-#                     print(f"Уведомление отправлено для аккаунта {account_id}")
-#             else:
-#                 print(f"Уведомление для аккаунта {account_id} не будет отправлено т.к. сегодня уже высылалось")
-
 async def get_accounts_from_db():
     async with aiosqlite.connect(db_path) as db:
         c = await db.cursor()
