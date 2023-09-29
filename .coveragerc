@@ -1,0 +1,6 @@
+[run]
+omit =
+    test_main.py
+    auth.py
+    temp1.py
+    temp2.py
