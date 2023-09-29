@@ -182,7 +182,7 @@ async def process_account_state(message: types.Message, state: FSMContext):
                 c = await db.cursor()
                 await c.execute('UPDATE Accounts SET daily_change_rate=0.0 WHERE account_id=?', (account_id,))
                 await db.commit()
-                await message.answer("Вы сбросили процентное изменение портфеля для данного account_id")
+                await message.answer(f"Вы сбросили процентное изменение портфеля для данного {account_id}")
                 await state.finish()
         else:
             await message.answer("Неверное действие.")
