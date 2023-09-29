@@ -24,5 +24,6 @@ jobs:
 
     - name: Run tests
       env:
-        API_TOKEN: ${{ secrets.API_TOKEN }}
+        BOT_TOKEN_MIPT: ${{ secrets.BOT_TOKEN_MIPT }}
+        INVEST_TOKEN_READ: ${{ secrets.INVEST_TOKEN_READ }}
       run: python test_main.py
