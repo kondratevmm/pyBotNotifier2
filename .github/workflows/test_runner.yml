@@ -1,0 +1,29 @@
+name: Run Tests
+
+on:
+  pull_request:
+    branches:
+      - dev
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.11.4'
+
+    - name: Install dependencies
+      run: pip install -r requirements.txt
+
+    - name: Run tests
+      env:
+        BOT_TOKEN_MIPT: ${{ secrets.BOT_TOKEN_MIPT }}
+        INVEST_TOKEN_READ: ${{ secrets.INVEST_TOKEN_READ }}
+      run: python test_main.py
