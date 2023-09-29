@@ -14,6 +14,8 @@ import invest_requests
 import aiosqlite
 import asyncio
 
+print('1')
+
 API_TOKEN = auth.BOT_TOKEN
 # конфигурация логгера
 logging.basicConfig(level=logging.INFO)
